@@ -2,17 +2,17 @@ from models import Company, Dev, Freebie
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-# Set up the database connection
+
 engine = create_engine('sqlite:///freebies.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Enable foreign key support for SQLite
+
 engine.execute("PRAGMA foreign_keys = ON")
 
-# Create some sample data for companies, developers, and freebies
 
-# Check if companies already exist in the database
+
+
 company1 = session.query(Company).filter_by(name="TechCorp").first()
 if not company1:
     company1 = Company(name="TechCorp", founding_year=2000)
@@ -23,9 +23,9 @@ if not company2:
     company2 = Company(name="DevSolutions", founding_year=2010)
     session.add(company2)
 
-session.commit()  # Commit to ensure companies are inserted or found
+session.commit()  
 
-# Check if devs already exist in the database
+
 dev1 = session.query(Dev).filter_by(name="Alice").first()
 if not dev1:
     dev1 = Dev(name="Alice", company=company1)
@@ -41,9 +41,9 @@ if not dev3:
     dev3 = Dev(name="Charlie", company_id=company2.id)
     session.add(dev3)
 
-session.commit()  # Commit to ensure devs are inserted or found
+session.commit()  
 
-# Check if freebies already exist in the database
+
 freebie1 = session.query(Freebie).filter_by(name="Free Laptop", dev=dev1).first()
 if not freebie1:
     freebie1 = Freebie(name="Free Laptop", quantity=5, company=company1, dev=dev1)
@@ -59,9 +59,9 @@ if not freebie3:
     freebie3 = Freebie(name="Free Tablet", quantity=15, company=company2, dev=dev3)
     session.add(freebie3)
 
-session.commit()  # Commit to ensure freebies are inserted or found
+session.commit()  
 
-# Print out the data inserted to verify
+
 print("Companies:")
 for company in session.query(Company).all():
     print(f"{company.name} ({company.founding_year})")
